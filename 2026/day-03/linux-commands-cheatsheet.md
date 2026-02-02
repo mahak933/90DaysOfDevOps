@@ -7,9 +7,8 @@ Practiced commonly used Linux commands related to:
 
 📸 Handwritten Linux Commands Cheat Sheet
 
-Linux_Process_Management.jpeg
-Linux_File_and_Networking_Commands.jpeg
-
+!Linux_Process_Management.jpg
+!Linux_File_and_Networking.jpg
 
 ## ✅ Status
 
