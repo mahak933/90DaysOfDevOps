@@ -1,6 +1,7 @@
 Day-06
 
 Commands Practiced
+--------------------
 touch notes.txt
 Created an empty file.
 
