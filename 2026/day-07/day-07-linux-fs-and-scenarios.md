@@ -52,17 +52,17 @@ Day 07 – Linux File System Hierarchy & Scenario-Based Practice
 
 Step 1: Check service status
 
-https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/nginx_status.png
+![image alt]https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/nginx_status.png
 
 
 Step 2: If service is not found, list all services
 
-https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/status.png
+![image alt]https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/status.png
 
 
 Step 3: Check if service is enabled on boot
 
-https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/nginx.jfif
+![image alt]https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/nginx.jfif
 
 
-https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/image.jfif
+![image alt]https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/image.jfif
