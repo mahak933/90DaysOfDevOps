@@ -1,26 +1,26 @@
-Day-06
+# Day-06
 
 Commands Practiced
 --------------------
-touch notes.txt
+# touch notes.txt
 Created an empty file.
 
-echo "Line 1" > notes.txt
+# echo "Line 1" > notes.txt
 Wrote content using output redirection.
 
-echo "Line 2" >> notes.txt
+# echo "Line 2" >> notes.txt
 Appended content to the file.
 
-echo "Line 3" | tee -a notes.txt
+# echo "Line 3" | tee -a notes.txt
 Displayed output and appended it simultaneously.
 
-cat notes.txt
+# cat notes.txt
 Read the full file.
 
-head -n 2 notes.txt
+# head -n 2 notes.txt
 Read the first two lines.
 
-tail -n 2 notes.txt
+# tail -n 2 notes.txt
 Read the last two lines.
 
 
