@@ -1,6 +1,8 @@
 Day 07 – Linux File System Hierarchy & Scenario-Based Practice
+---------------------------------------------------------------
 
 Part 1: Linux File System Hierarchy 
+-----------------------------------
 
 `/ directory`
 
@@ -54,6 +56,7 @@ Part 1: Linux File System Hierarchy
 
 
 Part 2: Scenario-Based Practice 
+--------------------------------
 
 Step 1: Check service status
 ![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/e2df7ae340204244481c14a9043708e7d587f020/2026/day-07/nginx_status.png)
