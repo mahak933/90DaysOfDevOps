@@ -22,6 +22,15 @@ Document: What happens if you remove the shebang line?
 Print: Hello, I am <NAME> and I am a <ROLE>
 Try using single quotes vs double quotes — what's the difference?
 
+`example`
+name = mahak
+echo '$name'
+echo "$name"
+`output`
+$name
+mahak
+
+
 -----------------------------------------------------------------------------------------------------------------------------
 
 - Task 3: User Input with read
