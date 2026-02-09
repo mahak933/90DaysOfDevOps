@@ -43,8 +43,7 @@ Prints whether it is positive, negative, or zero
 
 Create `file_check.sh` that:
 
-![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/dc93daa3b2ccb85309890fea5f92b5b665366d06/2026/day-16/file_check.png)
-
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/dc93daa3b2ccb85309890fea5f92b5b665366d06/2026/day-16/check_num.sh.png)
 
 
 2. Asks for a filename
@@ -53,7 +52,7 @@ Checks if the file exists using `-f`
 
 Prints appropriate message
 
-![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/dc93daa3b2ccb85309890fea5f92b5b665366d06/2026/day-16/check_num.sh.png)
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/dc93daa3b2ccb85309890fea5f92b5b665366d06/2026/day-16/file_check.png)
 
 -----------------------------------------------------------------------------------------------------------------------------
 
