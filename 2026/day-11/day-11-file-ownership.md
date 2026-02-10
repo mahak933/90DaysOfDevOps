@@ -1,7 +1,7 @@
 Challenge Tasks
 ----------------
 
-- Task 1: Understanding Ownership (10 minutes)
+## Task 1: Understanding Ownership (10 minutes)
 
 Run `ls -l` in your home directory
 
@@ -18,7 +18,7 @@ Document: What's the difference between owner and group?
 
 ---------
 
-- Task 2: Basic chown Operations (20 minutes)
+## Task 2: Basic chown Operations (20 minutes)
 
 Create file `devops-file.txt`
 
@@ -39,7 +39,7 @@ Try:`sudo chown tokyo devops-file.txt`
 
 ------------
 
-- Task 3: Basic chgrp Operations (15 minutes)
+## Task 3: Basic chgrp Operations (15 minutes)
 
 Create file `team-notes.txt`
 
@@ -56,7 +56,7 @@ Verify the change
 
 -------------
 
-- Task 4: Combined Owner & Group Change (15 minutes)
+## Task 4: Combined Owner & Group Change (15 minutes)
   
 Using chown you can change both owner and group together:
 
@@ -77,7 +77,7 @@ Syntax: `sudo chown owner:group filename`
 
 ------
 
-- Task 5: Recursive Ownership (20 minutes)
+## Task 5: Recursive Ownership (20 minutes)
   
 Create group planners: `sudo groupadd planners`
 
@@ -94,7 +94,7 @@ Verify all files and subdirectories changed: `ls -lR heist-project/`
 
 --------
 
-- Task 6: Practice Challenge (20 minutes)
+## Task 6: Practice Challenge (20 minutes)
 
 Create users: `tokyo`, `berlin`, `nairobi` (if not already created)
 
@@ -102,7 +102,7 @@ Create groups: `vault-team`, `tech-team`
 
 Create directory: `bank-heist/`
 
-## Set different ownership:
+# Set different ownership:
 
 - access-codes.txt → owner: tokyo, group: vault-team
 - blueprints.pdf → owner: berlin, group: tech-team
