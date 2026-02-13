@@ -7,6 +7,7 @@
 3. A function add that takes two numbers and prints their `sum`
 4. Call both functions from the script
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ba6fea5100a31f740a2ebb150df2db8102bf4a6c/2026/day-18/task1.png)
 
 
 -------------------------------
@@ -18,6 +19,8 @@
 3. A function check_memory that checks free memory using `free -h`
 4. A `main` section that calls both and prints the results
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ba6fea5100a31f740a2ebb150df2db8102bf4a6c/2026/day-18/task2.png)
+
 
 ------------------------------------
 
@@ -28,12 +31,14 @@
 3. Try a command that fails — what happens with `set -e`?
 4. Try a piped command where one part fails — what happens with `set -o pipefail`?
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ba6fea5100a31f740a2ebb150df2db8102bf4a6c/2026/day-18/task3.png)
 
 
 Document: What does each flag do?
-set -e →
-set -u →
-set -o pipefail →
+Flag             Meaning                             Effect
+set -e           Exit on error                       Script stops if any command fails
+set -u           Undefined variable is an error      Prevents using variables that were not initialized
+set -o pipefail  Pipeline fails if any step fails    Ensures reliable piped commands
 
 ------------------------------------------
 
@@ -43,6 +48,8 @@ set -o pipefail →
 2. A function that uses `local keyword` for variables
 3. Show that local variables don't leak outside the function
 4. Compare with a function that uses regular variables
+
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ba6fea5100a31f740a2ebb150df2db8102bf4a6c/2026/day-18/task4.png)
 
 
 ----------------------------
@@ -59,4 +66,7 @@ set -o pipefail →
 
 Output should look clean and readable.
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ba6fea5100a31f740a2ebb150df2db8102bf4a6c/2026/day-18/task5_script.png)
+
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ba6fea5100a31f740a2ebb150df2db8102bf4a6c/2026/day-18/task5_output.png)
 
