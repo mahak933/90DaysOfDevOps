@@ -35,13 +35,14 @@
 
 
 Document: What does each flag do?
+
 `Flag`           `Meaning`                          `Effect`
 
-set -e           Exit on error                       Script stops if any command fails
+`set -e`           - Exit on error                       - Script stops if any command fails
 
-set -u           Undefined variable is an error      Prevents using variables that were not initialized
+`set -u`           - Undefined variable is an error      - Prevents using variables that were not initialized
 
-set -o pipefail  Pipeline fails if any step fails    Ensures reliable piped commands
+`set -o pipefail`  - Pipeline fails if any step fails    - Ensures reliable piped commands
 
 ------------------------------------------
 
