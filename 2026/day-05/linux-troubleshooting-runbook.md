@@ -37,7 +37,6 @@ Observation:
 Filesystem is writable; permissions are normal and consistent.
 
 - CPU & Memory Snapshot
------------
 
 3️⃣ System-wide Resource View
 `top`
@@ -81,7 +80,6 @@ Observation:
 Log directory size is normal; no excessive log growth.
 
 -  Network Snapshot
----------------
 
 8️⃣ Listening Ports
 
@@ -117,6 +115,8 @@ Observation:
 
 Only normal login attempts; no suspicious activity.
 
+------- 
+
 ✅ Quick Summary
 
 1.SSH service is healthy and stable
@@ -144,6 +144,8 @@ Only normal login attempts; no suspicious activity.
 `strace -p <PID>`
 
 Monitor system calls for unusual behavior.
+
+--------------
 
 # Final Notes
 
