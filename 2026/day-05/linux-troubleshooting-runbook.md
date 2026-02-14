@@ -1,6 +1,7 @@
 # Day 15 – Networking Concepts: DNS, IP, Subnets & Ports
 
 🔹 Task 1: DNS – Converting Names into IP Addresses
+
 1️⃣ What happens when you type google.com in a browser?
 
 Your computer first checks its local DNS cache.
@@ -32,6 +33,7 @@ TTL: Usually around 300 seconds (but can vary)
 TTL defines how long a DNS response can remain cached before it must be refreshed.
 
 🔹 Task 2: IP Addressing
+
 1️⃣ What is an IPv4 address?
 An IPv4 address is a 32‑bit numeric label written in dotted‑decimal format, e.g.:
 192.168.1.10
@@ -52,36 +54,45 @@ Private IPs are non‑routable on the public internet.
 
 
 4️⃣ Using ip addr show
+
 Command:
-ip addr show
+`ip addr show`
 
 Observation:
+
 My system shows a 192.168.x.x address → meaning it’s within a private LAN.
 
 🔹 Task 3: CIDR & Subnetting
+
 1️⃣ What does /24 mean?
+
 192.168.1.0/24 means:
 
-First 24 bits represent the network
-Last 8 bits represent hosts
-Subnet mask → 255.255.255.0
+1.First 24 bits represent the network
+
+2.Last 8 bits represent hosts
+
+3.Subnet mask → 255.255.255.0
 
 
 2️⃣ Usable Hosts per Subnet
 
 /24 → 256 total → 254 usable
+
 /16 → 65,536 total → 65,534 usable
+
 /28 → 16 total → 14 usable
 
 (Network and broadcast addresses are not assignable to hosts.)
 
 3️⃣ Why subnet?
+
 Subnetting helps by:
 
-Structuring networks
-Enhancing security
-Reducing broadcast traffic
-Improving address allocation
+1.Structuring networks
+2.Enhancing security
+3.Reducing broadcast traffic
+4.Improving address allocation
 
 It’s especially essential in cloud environments like AWS VPCs.
 
@@ -90,10 +101,13 @@ It’s especially essential in cloud environments like AWS VPCs.
 CIDRSubnet MaskTotal IPsUsable Hosts/24255.255.255.0256254/16255.255.0.065,53665,534/28255.255.255.2401614
 
 🔹 Task 4: Ports – Where Services Live
+
 1️⃣ What is a port?
+
 A port is a logical endpoint inside a device.
 
 IP identifies which machine
+
 Port identifies which service on that machine
 
 
@@ -101,14 +115,21 @@ Port identifies which service on that machine
 
 `Port`    `Service`
 22 ----- SSH
+
 80 ----- HTTP
+
 443 ------ HTTPS
+
 53 ----- DNS
+
 3306 ----- MySQL
+
 6379 ----- Redis
+
 27017 ----- MongoDB
 
 3️⃣ Using ss -tulpn
+
 Command:
 `ss -tulpn`
 
@@ -121,6 +142,7 @@ Port 631 → CUPS (printing service)
 Shows active services and listening ports.
 
 🔹 Task 5: Bringing It All Together
+
 1️⃣ What happens in curl http://myapp.com:8080?
 
 1.DNS resolves the domain
