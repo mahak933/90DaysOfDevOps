@@ -1,172 +1,150 @@
-# Day 15 – Networking Concepts: DNS, IP, Subnets & Ports
+# Linux Troubleshooting Runbook
 
-🔹 Task 1: DNS – Converting Names into IP Addresses
+- Day 05 – CPU, Memory & Logs Analysis
+----------
+Today’s goal was to practice a structured troubleshooting workflow—capturing system state, validating service health, and reviewing logs to build a repeatable approach for incident response.
 
-1️⃣ What happens when you type google.com in a browser?
+- Target Service
+-----------
+Service: `ssh`
 
-Your computer first checks its local DNS cache.
-If the record isn’t cached, it forwards the request to the DNS resolver (ISP or configured DNS server).
-The resolver performs a lookup through multiple layers:
+Reason: Always running, essential for system access, and easy to inspect through logs and network checks.
 
-Once the IP address is found, the browser uses it to establish a connection.
+-  Environment Validation
+----------
 
-👉 In simple terms: DNS translates domain names into IP addresses the computer understands.
+1️⃣ OS & Kernel
 
-2️⃣ Common DNS Record Types
-
-A → Maps a domain to an IPv4 address
-AAAA → Maps a domain to an IPv6 address
-CNAME → Points one domain name to another domain
-MX → Directs email to mail servers
-NS → Specifies the authoritative name servers for the domain
-
-
-3️⃣ Using dig google.com
-Command:
-dig google.com
-
-Findings:
-
-A record: Something like 142.250.x.x
-TTL: Usually around 300 seconds (but can vary)
-
-TTL defines how long a DNS response can remain cached before it must be refreshed.
-
-🔹 Task 2: IP Addressing
-
-1️⃣ What is an IPv4 address?
-An IPv4 address is a 32‑bit numeric label written in dotted‑decimal format, e.g.:
-192.168.1.10
-It consists of four octets and uniquely identifies a device on a network.
-
-2️⃣ Public vs. Private IPs
-
-Public IPs → Reachable over the internet (8.8.8.8)
-Private IPs → Used inside internal networks (192.168.1.5)
-
-Private IPs are non‑routable on the public internet.
-
-3️⃣ Private IP Ranges
-
-10.0.0.0 – 10.255.255.255
-172.16.0.0 – 172.31.255.255
-192.168.0.0 – 192.168.255.255
-
-
-4️⃣ Using ip addr show
-
-Command:
-`ip addr show`
+`uname -a`
+`cat /etc/os-release`
 
 Observation:
 
-My system shows a 192.168.x.x address → meaning it’s within a private LAN.
+Kernel version and OS distribution verified successfully.
 
-🔹 Task 3: CIDR & Subnetting
+📁 Filesystem Check
 
-1️⃣ What does /24 mean?
+2️⃣ Temporary Workspace
 
-192.168.1.0/24 means:
+`mkdir /tmp/runbook-demo`
 
-1.First 24 bits represent the network
+`cp /etc/hosts /tmp/runbook-demo/hosts-copy`
 
-2.Last 8 bits represent hosts
+`ls -l /tmp/runbook-demo`
 
-3.Subnet mask → 255.255.255.0
+Observation:
+
+Filesystem is writable; permissions are normal and consistent.
+
+- CPU & Memory Snapshot
+-----------
+
+3️⃣ System-wide Resource View
+`top`
+
+- Observation:
+
+Low CPU load and stable memory usage; nothing abnormal.
+
+4️⃣ Process-specific Usage
+
+`ps -o pid`,`pcpu`,`pmem`,`comm -C sshd`
+
+Observation:
+
+shd is using negligible CPU and memory.
+
+5️⃣ Memory Overview
+
+`free -h`
+
+Observation:
+
+Plenty of free memory; no swap pressure detected.
+
+- Disk & I/O Snapshot
+
+6️⃣ Disk Usage
+
+`df -h`
+
+Observation:
+
+Root filesystem has adequate free space.
+
+7️⃣ Log Directory Size
+
+`du -sh /var/log`
+
+Observation:
+
+Log directory size is normal; no excessive log growth.
+
+-  Network Snapshot
+---------------
+
+8️⃣ Listening Ports
+
+`ss -tulpn | grep ssh`
+
+Observation:
+
+SSH is actively listening on port 22.
+
+9️⃣ Local Connectivity
+
+`curl -I localhost`
+
+Observation:
+
+Local network stack responding correctly.
+
+- Log Review
+
+🔟 systemd Logs
+
+`journalctl -u ssh -n 50`
+
+Observation:
+
+No recent failures or warnings.
+
+1️⃣1️⃣ Authentication Logs
+
+`tail -n 50 /var/log/auth.log`
+
+Observation:
+
+Only normal login attempts; no suspicious activity.
+
+✅ Quick Summary
+
+1.SSH service is healthy and stable
+2.CPU, memory, disk, and network usage all within normal ranges
+3.No error patterns detected in recent logs
+4.verall system is functioning normally
 
 
-2️⃣ Usable Hosts per Subnet
+- If the Issue Escalates: Recommended Next Steps
+  
+1️⃣ Safe Restart
 
-/24 → 256 total → 254 usable
+`systemctl restart ssh`
 
-/16 → 65,536 total → 65,534 usable
+-Monitor CPU, memory, and logs immediately afterward.
 
-/28 → 16 total → 14 usable
+2️⃣ Increase Visibility
 
-(Network and broadcast addresses are not assignable to hosts.)
+`journalctl -u ssh -f`
 
-3️⃣ Why subnet?
+- Capture real-time logging.
 
-Subnetting helps by:
+3️⃣ Deep Diagnostics
 
-1.Structuring networks
-2.Enhancing security
-3.Reducing broadcast traffic
-4.Improving address allocation
+`strace -p <PID>`
 
-It’s especially essential in cloud environments like AWS VPCs.
+Monitor system calls for unusual behavior.
 
-4️⃣ CIDR Quick Reference Table
+# Final Notes
 
-CIDRSubnet MaskTotal IPsUsable Hosts/24255.255.255.0256254/16255.255.0.065,53665,534/28255.255.255.2401614
-
-🔹 Task 4: Ports – Where Services Live
-
-1️⃣ What is a port?
-
-A port is a logical endpoint inside a device.
-
-IP identifies which machine
-
-Port identifies which service on that machine
-
-
-2️⃣ Common Ports
-
-`Port`    `Service`
-22 ----- SSH
-
-80 ----- HTTP
-
-443 ------ HTTPS
-
-53 ----- DNS
-
-3306 ----- MySQL
-
-6379 ----- Redis
-
-27017 ----- MongoDB
-
-3️⃣ Using ss -tulpn
-
-Command:
-`ss -tulpn`
-
-Observations:
-
-Port 22 → SSH
-
-Port 631 → CUPS (printing service)
-
-Shows active services and listening ports.
-
-🔹 Task 5: Bringing It All Together
-
-1️⃣ What happens in curl http://myapp.com:8080?
-
-1.DNS resolves the domain
-2.IP routing sends the traffic to the destination
-3.TCP establishes the connection
-4.Port 8080 identifies the application backend
-5.HTTP handles request–response communication
-
-Multiple networking layers working in harmony.
-
-2️⃣ App can't reach DB at 10.0.1.50:3306 — What to check?
-
-1.Is the database service running?
-2.Is port 3306 open/listening?
-3.Firewall / Security Group rules?
-4.Correct subnet routing?
-5.Are both resources in the same network or VPC?
-
-Since 10.x.x.x is private, connectivity depends heavily on internal network configuration.
-
-🌟 What I Learned (Summary)
-
-1.DNS is a structured lookup system, not magic.
-2.CIDR defines network size and available hosts.
-3.IP identifies a machine; Port identifies a specific service.
-
-Networking feels much more logical now, and not just a set of random commands.
+This exercise helped reinforce a structured troubleshooting approach—gathering evidence across CPU, memory, disk, network, and logs before taking action.
