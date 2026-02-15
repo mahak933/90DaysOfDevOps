@@ -9,8 +9,13 @@ Level up your scripting — use loops, handle arguments, and deal with errors.
 ### Task 1: For Loop
 1. Create `for_loop.sh` that:
    - Loops through a list of 5 fruits and prints each one
+
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/for_loop.png)
+
 2. Create `count.sh` that:
    - Prints numbers 1 to 10 using a for loop
+
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/count1-10.png)
 
 
 ---
@@ -20,6 +25,8 @@ Level up your scripting — use loops, handle arguments, and deal with errors.
    - Takes a number from the user
    - Counts down to 0 using a while loop
    - Prints "Done!" at the end
+
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/countdown.png)
 
 
 ---
@@ -31,11 +38,14 @@ Level up your scripting — use loops, handle arguments, and deal with errors.
    - Prints `Hello, <name>!`
    - If no argument is passed, prints "Usage: ./greet.sh <name>"
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/greet.png)
+
 2. Create `args_demo.sh` that:
    - Prints total number of arguments (`$#`)
    - Prints all arguments (`$@`)
    - Prints the script name (`$0`)
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/args_demo.png)
 
 ---
 
@@ -49,6 +59,7 @@ Level up your scripting — use loops, handle arguments, and deal with errors.
 
 > Run as root: `sudo -i` or `sudo su`
 
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/installed_packages.png)
 
 ---
 
@@ -69,8 +80,7 @@ mkdir /tmp/devops-test || echo "Directory already exists"
 
 ---
 
-
-
+![image alt](https://github.com/mahak933/90DaysOfDevOps/blob/ef4d1579bc9c9b3d57b989ce4fce7f494cb521f7/2026/day-17/safe_script.png)
 
 
 ## Hints
