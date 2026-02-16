@@ -7,6 +7,7 @@
 2.Set up your Git identity — name and email
 3.Verify your configuration
 
+![image alt]()
 
 -------
 
