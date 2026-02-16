@@ -55,7 +55,7 @@ In your `devops-git-practice` repo, perform the following:
 3. Switch to `feature-1`
 4. Create a new branch and switch to it in a single command — call it `feature-2`
 
-![alt text](./images/task2.1.png.png)
+![alt text](./images/task2.1.png)
 
 5. Try using `git switch` to move between branches — how is it different from `git checkout`?
 
@@ -66,11 +66,11 @@ git checkout → branch switching + file restore
 6. Make a commit on `feature-1` that does **not** exist on `main`
 7. Switch back to `main` — verify that the commit from `feature-1` is not there
 
-![alt text](./images/task2.2.png.png)
+![alt text](./images/task2.2.png)
 
 8. Delete a branch you no longer need
 
-![alt text](./images/task2.3.png.png)
+![alt text](./images/task2.3.png)
 
 
 9. Add all branching commands to your `git-commands.md`
@@ -82,15 +82,15 @@ git checkout → branch switching + file restore
 2. Connect your local `devops-git-practice` repo to the GitHub remote
 3. Push your `main` branch to GitHub
 
-![alt text](./images/task3.1.png.png)
+![alt text](./images/task3.1.png)
 
 4. Push `feature-1` branch to GitHub
 
-![alt text](./images/task3.2.png.png)
+![alt text](./images/task3.2.png)
 
 5. Verify both branches are visible on GitHub
 
-![alt text](./images/task3.3.png.png)
+![alt text](./images/task3.3.png)
 
 6. Answer in your notes: What is the difference between `origin` and `upstream`?
 
@@ -107,7 +107,7 @@ Instead, you pull updates from it to keep your fork in sync.
 1. Make a change to a file **directly on GitHub** (use the GitHub editor)
 2. Pull that change to your local repo
 
-![alt text](./images/task4.png.png)
+![alt text](./images/task4.png)
 
 3. Answer in your notes: What is the difference between `git fetch` and `git pull`?
 
