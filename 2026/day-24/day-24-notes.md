@@ -100,14 +100,20 @@ You want to capture the fact that two branches diverged and were merged
     4. Feature branch relation is lost
 
 
----
+----
 
 ### Task 4: Git Stash — Hands-On
 1. Start making changes to a file but **do not commit**
 2. Now imagine you need to urgently switch to another branch — try switching. What happens?
 3. Use `git stash` to save your work-in-progress
+
+![alt text](./images/task4.png)
+
 4. Switch to another branch, do some work, switch back
 5. Apply your stashed changes using `git stash pop`
+
+![alt text](./images/task4.1.png)
+
 6. Try stashing multiple times and list all stashes
 7. Try applying a specific stash from the list
 8. Answer in your notes:
