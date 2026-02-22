@@ -9,48 +9,63 @@ A container is a lightweight, standalone environment that packages an applicatio
 - Containers vs Virtual Machines — what's the real difference?
   
 `Containers`
+
 1.Share the host OS kernel
+
 2.Very lightweight (few MBs)
+
 3.Start in milliseconds
+
 4.Contain only the application + dependencies
+
 5.Ideal for microservices and cloud-native apps
 
 `Virtual Machines`
+
 1.Have a full OS inside
+
 2.Heavy (GBs)
+
 3.Slow startup (seconds to minutes)
+
 4.Good for running different OS types
+
 5.More resource‑intensive
 
 - What is the Docker architecture? (daemon, client, images, containers, registry)
 
 1. Docker Client (docker command)
+
  The CLI tool you use
 
  Sends commands to the daemon
 
  Example: docker run, docker build
 
-3. Docker Daemon (dockerd)
+2. Docker Daemon (dockerd)
+ 
  Background service running on the host
  
  Does the actual work: build, run, stop containers
  
  Manages images and containers
 
-4. Docker Images
+3. Docker Images
+ 
  Read‑only templates
  
  Basis for creating containers
  
  Example: nginx:latest, python:3.11
 
-5. Docker Containers
+4. Docker Containers
+ 
  Running instances of images
  
  Lightweight environments for apps
 
-6. Docker Registry
+5. Docker Registry
+ 
  Stores and shares images
  
  Public: Docker Hub
