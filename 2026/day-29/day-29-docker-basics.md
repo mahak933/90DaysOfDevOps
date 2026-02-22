@@ -7,6 +7,7 @@ Research and write short notes on:
 A container is a lightweight, standalone environment that packages an application with everything it needs — code, libraries, dependencies — so it runs the same everywhere.
 
 - Containers vs Virtual Machines — what's the real difference?
+  
 `Containers`
 1.Share the host OS kernel
 2.Very lightweight (few MBs)
@@ -24,28 +25,37 @@ A container is a lightweight, standalone environment that packages an applicatio
 - What is the Docker architecture? (daemon, client, images, containers, registry)
 
 1. Docker Client (docker command)
-- The CLI tool you use
-- Sends commands to the daemon
-- Example: docker run, docker build
+ The CLI tool you use
 
-2. Docker Daemon (dockerd)
-- Background service running on the host
-- Does the actual work: build, run, stop containers
-- Manages images and containers
+ Sends commands to the daemon
 
-3. Docker Images
-- Read‑only templates
-- Basis for creating containers
-- Example: nginx:latest, python:3.11
+ Example: docker run, docker build
 
-4. Docker Containers
-- Running instances of images
-- Lightweight environments for apps
+3. Docker Daemon (dockerd)
+ Background service running on the host
+ 
+ Does the actual work: build, run, stop containers
+ 
+ Manages images and containers
 
-5. Docker Registry
-- Stores and shares images
-- Public: Docker Hub
-- Private: AWS ECR, GCP Artifact Registry
+4. Docker Images
+ Read‑only templates
+ 
+ Basis for creating containers
+ 
+ Example: nginx:latest, python:3.11
+
+5. Docker Containers
+ Running instances of images
+ 
+ Lightweight environments for apps
+
+6. Docker Registry
+ Stores and shares images
+ 
+ Public: Docker Hub
+ 
+ Private: AWS ECR, GCP Artifact Registry
 
 - Draw or describe the Docker architecture in your own words.
 
