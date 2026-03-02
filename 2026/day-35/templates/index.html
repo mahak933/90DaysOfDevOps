@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahak Agrawal — QA & DevOps Engineer</title>
+  <meta name="description" content="Portfolio of Mahak Agrawal — QA Automation Engineer & aspiring DevOps Engineer. Selenium, Python, Docker, AWS, CI/CD and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080c10;
+      --surface: #0d1117;
+      --surface2: #161b22;
+      --border: rgba(48, 54, 61, 0.9);
+      --border-glow: rgba(0, 255, 136, 0.2);
+      --fg: #e6edf3;
+      --muted: #7d8590;
+      --green: #00ff88;
+      --green2: #39d353;
+      --cyan: #58a6ff;
+      --orange: #f78166;
+      --yellow: #e3b341;
+      --purple: #bc8cff;
+      --radius: 10px;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --sans: 'Syne', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    /* ─── GRID ─── */
+    .grid-bg {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,255,136,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ─── GLOW BLOBS ─── */
+    .blob {
+      position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: -1;
+    }
+    .blob-1 { width: 600px; height: 600px; top: -200px; right: -200px; background: rgba(0,255,136,0.04); }
+    .blob-2 { width: 400px; height: 400px; bottom: 0; left: -100px; background: rgba(88,166,255,0.05); }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+    /* ─── LAYOUT ─── */
+    .wrap { width: min(1100px, 92%); margin-inline: auto; position: relative; z-index: 1; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,12,16,.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg);
+    }
+    .brand-logo {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      display: grid; place-items: center;
+      font-weight: 700; font-size: 13px; color: #080c10;
+      box-shadow: 0 0 16px rgba(0,255,136,0.3);
+    }
+    .brand-name { font-family: var(--sans); font-weight: 700; font-size: 15px; }
+    .brand-status {
+      display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted);
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
+
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link {
+      padding: 7px 12px; border-radius: 7px; text-decoration: none; color: var(--muted);
+      font-size: 13px; transition: .2s all;
+    }
+    .nav-link:hover { color: var(--green); background: rgba(0,255,136,.06); }
+    .nav-cta {
+      padding: 7px 14px; border-radius: 7px; border: 1px solid var(--green);
+      color: var(--green); text-decoration: none; font-size: 13px;
+      transition: .2s all;
+    }
+    .nav-cta:hover { background: var(--green); color: #080c10; box-shadow: 0 0 20px rgba(0,255,136,.3); }
+
+    /* ─── HERO ─── */
+    .hero { padding: 80px 0 60px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--green); letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-label::before { content: '//'; opacity: .5; }
+
+    .hero-name {
+      font-family: var(--sans); font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800; line-height: 1.05; margin-bottom: 14px;
+    }
+    .hero-name .line2 { color: var(--green); }
+
+    .hero-role {
+      font-size: 16px; color: var(--muted); margin-bottom: 24px; line-height: 1.5;
+    }
+    .hero-role span { color: var(--cyan); }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 8px;
+      background: var(--green); color: #080c10; font-weight: 700;
+      text-decoration: none; font-family: var(--mono); font-size: 13px;
+      transition: .2s all;
+    }
+    .btn-primary:hover { box-shadow: 0 0 28px rgba(0,255,136,.45); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 8px;
+      border: 1px solid var(--border); color: var(--fg);
+      text-decoration: none; font-family: var(--mono); font-size: 13px;
+      background: var(--surface2); transition: .2s all;
+    }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+    /* Terminal Card */
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(0,255,136,.05);
+    }
+    .terminal-bar {
+      background: var(--surface2);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: #ff5f56; }
+    .dot-y { background: #ffbd2e; }
+    .dot-g { background: #27c93f; }
+    .terminal-title { font-size: 12px; color: var(--muted); margin-left: auto; margin-right: auto; }
+    .terminal-body { padding: 20px; font-size: 13px; line-height: 1.8; }
+    .t-line { display: flex; gap: 8px; }
+    .t-prompt { color: var(--green); user-select: none; }
+    .t-path { color: var(--cyan); }
+    .t-cmd { color: var(--fg); }
+    .t-out { color: var(--muted); padding-left: 0; }
+    .t-key { color: var(--yellow); }
+    .t-val { color: var(--green); }
+    .t-val2 { color: var(--purple); }
+    .t-comment { color: #4a5568; }
+    .blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ─── SECTION HEADER ─── */
+    section { padding: 60px 0; }
+    .s-header { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .s-tag {
+      font-size: 11px; color: var(--green); letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 10px; border: 1px solid rgba(0,255,136,.2);
+      border-radius: 4px; background: rgba(0,255,136,.04);
+    }
+    .s-title {
+      font-family: var(--sans); font-size: 28px; font-weight: 700;
+      flex: 1;
+    }
+    .s-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+    /* ─── SKILLS ─── */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: .25s border-color, .25s box-shadow;
+    }
+    .skill-group:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 0 24px rgba(0,255,136,.06);
+    }
+    .sg-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .sg-icon { font-size: 20px; }
+    .sg-title { font-family: var(--sans); font-size: 14px; font-weight: 700; }
+    .sg-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px; padding: 4px 10px; border-radius: 4px;
+      border: 1px solid var(--border); color: var(--muted);
+      background: var(--surface2);
+      transition: .2s all;
+    }
+    .skill-group:hover .tag { border-color: rgba(0,255,136,.15); color: var(--fg); }
+    .tag.hot { border-color: rgba(0,255,136,.3); color: var(--green); background: rgba(0,255,136,.06); }
+
+    /* ─── EXPERIENCE TIMELINE ─── */
+    .exp-timeline { position: relative; padding-left: 24px; }
+    .exp-timeline::before {
+      content: '';
+      position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px;
+      background: linear-gradient(180deg, var(--green), transparent);
+    }
+    .exp-item { position: relative; margin-bottom: 28px; }
+    .exp-dot {
+      position: absolute; left: -23px; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--surface2); border: 2px solid var(--green);
+      box-shadow: 0 0 12px rgba(0,255,136,.4);
+    }
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      transition: .25s all;
+    }
+    .exp-card:hover { border-color: var(--border-glow); box-shadow: 0 8px 32px rgba(0,0,0,.3); }
+    .exp-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+    .exp-role { font-family: var(--sans); font-weight: 700; font-size: 16px; }
+    .exp-time {
+      font-size: 12px; color: var(--green); padding: 3px 10px;
+      border: 1px solid rgba(0,255,136,.2); border-radius: 4px;
+      background: rgba(0,255,136,.05);
+    }
+    .exp-company { font-size: 12px; color: var(--cyan); margin-bottom: 10px; }
+    .exp-desc { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px;
+      position: relative; overflow: hidden;
+      transition: .25s all; cursor: default;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0; transition: .3s opacity;
+    }
+    .project-card:hover { border-color: rgba(0,255,136,.25); box-shadow: 0 16px 48px rgba(0,0,0,.4); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+    .pc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .pc-icon { font-size: 22px; }
+    .pc-links { display: flex; gap: 8px; }
+    .pc-link {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: grid; place-items: center; color: var(--muted);
+      text-decoration: none; font-size: 14px;
+      transition: .2s all;
+    }
+    .pc-link:hover { border-color: var(--green); color: var(--green); }
+    .pc-title { font-family: var(--sans); font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+    .pc-desc { color: var(--muted); font-size: 12px; line-height: 1.6; margin-bottom: 14px; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    /* ─── DEVOPS JOURNEY ─── */
+    .journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .journey-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      position: relative; overflow: hidden;
+    }
+    .journey-card.featured {
+      border-color: rgba(0,255,136,.25);
+      background: linear-gradient(135deg, rgba(0,255,136,.04), var(--surface));
+    }
+    .journey-card.featured::after {
+      content: '#90DaysOfDevOps';
+      position: absolute; top: 14px; right: 14px;
+      font-size: 10px; color: var(--green); letter-spacing: 1px;
+      padding: 4px 8px; border: 1px solid rgba(0,255,136,.2); border-radius: 4px;
+    }
+    .jc-title { font-family: var(--sans); font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+    .jc-desc { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 14px; }
+    .progress-list { display: flex; flex-direction: column; gap: 10px; }
+    .progress-item { display: flex; flex-direction: column; gap: 4px; }
+    .pi-header { display: flex; justify-content: space-between; font-size: 12px; color: var(--fg); }
+    .pi-pct { color: var(--green); }
+    .progress-bar { height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+    .progress-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      box-shadow: 0 0 8px rgba(0,255,136,.4);
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .contact-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .form-row { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    .form-input {
+      width: 100%; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2); color: var(--fg);
+      font-family: var(--mono); font-size: 13px;
+      outline: none; transition: .2s border-color, .2s box-shadow;
+      resize: vertical;
+    }
+    .form-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,255,136,.1); }
+    .contact-info {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .contact-info h3 { font-family: var(--sans); font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .contact-info p { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+    .social-links { display: flex; flex-direction: column; gap: 10px; }
+    .social-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border-radius: 8px;
+      border: 1px solid var(--border);
+      text-decoration: none; color: var(--fg);
+      font-size: 13px; background: var(--surface2);
+      transition: .2s all;
+    }
+    .social-link:hover { border-color: var(--green); color: var(--green); transform: translateX(4px); }
+    .social-link i { font-size: 16px; width: 20px; }
+    .social-link-label { flex: 1; }
+    .social-link-arrow { color: var(--muted); transition: .2s; }
+    .social-link:hover .social-link-arrow { color: var(--green); transform: translateX(4px); }
+
+    /* ─── STATS ─── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 50px 0; }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      text-align: center; transition: .2s all;
+    }
+    .stat-card:hover { border-color: var(--border-glow); }
+    .stat-num {
+      font-family: var(--sans); font-size: 32px; font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-left { font-size: 12px; color: var(--muted); }
+    .footer-left span { color: var(--green); }
+    .footer-right { display: flex; gap: 6px; }
+    .footer-link {
+      padding: 6px 10px; border-radius: 6px; font-size: 12px; color: var(--muted);
+      text-decoration: none; transition: .2s all;
+    }
+    .footer-link:hover { color: var(--green); background: rgba(0,255,136,.06); }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-grid, .contact-grid, .journey-grid { grid-template-columns: 1fr; }
+      .skills-grid, .projects-grid { grid-template-columns: 1fr 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="wrap">
+      <div class="nav-inner">
+        <a href="#" class="brand">
+          <div class="brand-logo">MA</div>
+          <div>
+            <div class="brand-name">Mahak Agrawal</div>
+            <div class="brand-status">
+              <div class="status-dot"></div>
+              <span style="font-size:11px;color:var(--muted)">Available for opportunities</span>
+            </div>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="#skills" class="nav-link">~/skills</a>
+          <a href="#experience" class="nav-link">~/experience</a>
+          <a href="#projects" class="nav-link">~/projects</a>
+          <a href="#devops" class="nav-link">~/devops</a>
+          <a href="#contact" class="nav-cta">./contact.sh</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-label reveal">QA Automation · DevOps Learner</div>
+          <h1 class="hero-name reveal reveal-delay-1">
+            Hi, I'm<br>
+            <span class="line2">Mahak Agrawal</span>
+          </h1>
+          <p class="hero-role reveal reveal-delay-2">
+            <span>QA Automation Engineer I</span> turning test strategies into reliable pipelines.<br>
+            Selenium · Python · Robot Framework · CI/CD · Docker · AWS
+          </p>
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="#contact" class="btn-primary"><i class="ri-terminal-line"></i> Let's Connect</a>
+            <a href="#projects" class="btn-outline"><i class="ri-flask-line"></i> See My Work</a>
+            <a href="resume.pdf" class="btn-outline"><i class="ri-download-2-line"></i> Resume</a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="dot dot-r"></div>
+              <div class="dot dot-y"></div>
+              <div class="dot dot-g"></div>
+              <span class="terminal-title">mahak@devops-machine ~ zsh</span>
+            </div>
+            <div class="terminal-body">
+              <div class="t-line"><span class="t-prompt">❯</span><span class="t-path">~/about</span><span class="t-cmd">&nbsp;cat profile.json</span></div>
+              <br>
+              <div class="t-line"><span class="t-comment">{</span></div>
+              <div class="t-line" style="padding-left:16px"><span class="t-key">"name"</span>: <span class="t-val">"Mahak Agrawal"</span>,</div>
+              <div class="t-line" style="padding-left:16px"><span class="t-key">"role"</span>: <span class="t-val">"QA Automation Engineer I"</span>,</div>
+              <div class="t-line" style="padding-left:16px"><span class="t-key">"location"</span>: <span class="t-val">"Uttar Pradesh, IN"</span>,</div>
+              <div class="t-line" style="padding-left:16px"><span class="t-key">"focus"</span>: <span class="t-val2">["Automation", "DevOps", "CI/CD"]</span>,</div>
+              <div class="t-line" style="padding-left:16px"><span class="t-key">"learning"</span>: <span class="t-val2">["AWS", "Kubernetes", "Terraform"]</span>,</div>
+              <div class="t-line" style="padding-left:16px"><span class="t-key">"status"</span>: <span class="t-val">"#90DaysOfDevOps 🚀"</span></div>
+              <div class="t-line"><span class="t-comment">}</span></div>
+              <br>
+              <div class="t-line"><span class="t-prompt">❯</span><span class="t-path">~/about</span><span class="t-cmd">&nbsp;<span class="blink">▋</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card reveal">
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Years in QA</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Automation Frameworks</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-num">90</div>
+          <div class="stat-label">Days of DevOps Challenge</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Tools Mastered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="s-header reveal">
+        <span class="s-tag">01</span>
+        <h2 class="s-title">Tech Stack</h2>
+        <div class="s-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <div class="sg-header">
+            <span class="sg-icon">🧪</span>
+            <span class="sg-title">Test Automation</span>
+          </div>
+          <div class="sg-tags">
+            <span class="tag hot">Selenium WebDriver</span>
+            <span class="tag hot">Robot Framework</span>
+            <span class="tag hot">Playwright</span>
+            <span class="tag">Cypress</span>
+            <span class="tag">Allure Reports</span>
+            <span class="tag">Page Object Model</span>
+          </div>
+        </div>
+        <div class="skill-group reveal reveal-delay-1">
+          <div class="sg-header">
+            <span class="sg-icon">🐍</span>
+            <span class="sg-title">Languages & Scripting</span>
+          </div>
+          <div class="sg-tags">
+            <span class="tag hot">Python</span>
+            <span class="tag">Shell Scripting</span>
+            <span class="tag">SQL</span>
+            <span class="tag">JavaScript (basics)</span>
+          </div>
+        </div>
+        <div class="skill-group reveal reveal-delay-2">
+          <div class="sg-header">
+            <span class="sg-icon">🚀</span>
+            <span class="sg-title">DevOps & Cloud</span>
+          </div>
+          <div class="sg-tags">
+            <span class="tag hot">Docker</span>
+            <span class="tag hot">GitHub Actions</span>
+            <span class="tag">AWS (EC2, S3, IAM)</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Terraform</span>
+            <span class="tag">Ansible</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="sg-header">
+            <span class="sg-icon">🔌</span>
+            <span class="sg-title">API & Performance</span>
+          </div>
+          <div class="sg-tags">
+            <span class="tag hot">Postman</span>
+            <span class="tag hot">Newman</span>
+            <span class="tag">REST / Swagger</span>
+            <span class="tag">JMeter</span>
+            <span class="tag">Contract Testing</span>
+          </div>
+        </div>
+        <div class="skill-group reveal reveal-delay-1">
+          <div class="sg-header">
+            <span class="sg-icon">📊</span>
+            <span class="sg-title">Monitoring & Observability</span>
+          </div>
+          <div class="sg-tags">
+            <span class="tag">Prometheus</span>
+            <span class="tag">Grafana</span>
+            <span class="tag">SLOs / SLIs</span>
+          </div>
+        </div>
+        <div class="skill-group reveal reveal-delay-2">
+          <div class="sg-header">
+            <span class="sg-icon">🛠️</span>
+            <span class="sg-title">Tools & Platforms</span>
+          </div>
+          <div class="sg-tags">
+            <span class="tag hot">Git / GitHub</span>
+            <span class="tag">GitLab</span>
+            <span class="tag">Jira</span>
+            <span class="tag">Linux</span>
+            <span class="tag">VS Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="s-header reveal">
+        <span class="s-tag">02</span>
+        <h2 class="s-title">Experience</h2>
+        <div class="s-line"></div>
+      </div>
+      <div class="exp-timeline">
+        <div class="exp-item reveal">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-top">
+              <div class="exp-role">Quality Assurance Engineer I</div>
+              <span class="exp-time">Current · Full-time</span>
+            </div>
+            <div class="exp-company"><i class="ri-building-line"></i> &nbsp;Software Company · Uttar Pradesh</div>
+            <p class="exp-desc">
+              Owning the full test lifecycle — from planning and automation design to defect triage and release gating.
+              Building modular Selenium + Robot Framework suites, integrating with GitHub Actions for CI, and partnering
+              with dev teams to shift quality left. API contract checks via Postman/Newman on every PR.
+            </p>
+            <div class="exp-tags">
+              <span class="tag hot">Selenium</span><span class="tag hot">Robot Framework</span>
+              <span class="tag hot">GitHub Actions</span><span class="tag">API Testing</span>
+              <span class="tag">Python</span><span class="tag">Jira</span>
+            </div>
+          </div>
+        </div>
+        <div class="exp-item reveal reveal-delay-1">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-top">
+              <div class="exp-role">QA Intern / Trainee</div>
+              <span class="exp-time" style="border-color:rgba(88,166,255,.2);color:var(--cyan);background:rgba(88,166,255,.05)">Past</span>
+            </div>
+            <div class="exp-company"><i class="ri-graduation-cap-line"></i> &nbsp;Entry Level</div>
+            <p class="exp-desc">
+              Built the foundation in test case design, bug reporting, and CI basics. Contributed to UI smoke suites,
+              wrote initial API checks, and learned version control workflows with Git.
+            </p>
+            <div class="exp-tags">
+              <span class="tag">Manual Testing</span><span class="tag">Selenium</span>
+              <span class="tag">Git</span><span class="tag">Bug Reporting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROJECTS ─── -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="s-header reveal">
+        <span class="s-tag">03</span>
+        <h2 class="s-title">Selected Projects</h2>
+        <div class="s-line"></div>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card reveal">
+          <div class="pc-header">
+            <span class="pc-icon">🤖</span>
+            <div class="pc-links">
+              <a href="#" class="pc-link" title="GitHub"><i class="ri-github-line"></i></a>
+              <a href="#" class="pc-link" title="Docs"><i class="ri-external-link-line"></i></a>
+            </div>
+          </div>
+          <div class="pc-title">E2E Automation Framework</div>
+          <div class="pc-desc">Modular Playwright/Selenium framework with POM, fixtures, parallel runs, and Allure reporting. Integrated with GitHub Actions for PR gating.</div>
+          <div class="pc-tags">
+            <span class="tag hot">Playwright</span><span class="tag">Selenium</span><span class="tag">Allure</span><span class="tag">Python</span>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-1">
+          <div class="pc-header">
+            <span class="pc-icon">🔌</span>
+            <div class="pc-links">
+              <a href="#" class="pc-link"><i class="ri-github-line"></i></a>
+              <a href="#" class="pc-link"><i class="ri-play-line"></i></a>
+            </div>
+          </div>
+          <div class="pc-title">API Test Suite + Contract Checks</div>
+          <div class="pc-desc">Robust REST validation covering schema, status codes, idempotency and negative paths. Newman runs in CI as a quality gate on every push.</div>
+          <div class="pc-tags">
+            <span class="tag hot">Postman</span><span class="tag hot">Newman</span><span class="tag">GitHub Actions</span>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-2">
+          <div class="pc-header">
+            <span class="pc-icon">📊</span>
+            <div class="pc-links">
+              <a href="#" class="pc-link"><i class="ri-github-line"></i></a>
+              <a href="#" class="pc-link"><i class="ri-dashboard-2-line"></i></a>
+            </div>
+          </div>
+          <div class="pc-title">Performance Smoke & Dashboards</div>
+          <div class="pc-desc">JMeter load profiles with SLO-oriented checks. Lightweight smoke runs post-deploy feed a Grafana dashboard for real-time performance visibility.</div>
+          <div class="pc-tags">
+            <span class="tag hot">JMeter</span><span class="tag">Grafana</span><span class="tag">SLOs</span>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="pc-header">
+            <span class="pc-icon">🐳</span>
+            <div class="pc-links">
+              <a href="#" class="pc-link"><i class="ri-github-line"></i></a>
+            </div>
+          </div>
+          <div class="pc-title">Dockerized Test Environments</div>
+          <div class="pc-desc">Containerized Selenium Grid setup for cross-browser testing. Docker Compose manages hub and node services for reproducible local and CI runs.</div>
+          <div class="pc-tags">
+            <span class="tag hot">Docker</span><span class="tag">Selenium Grid</span><span class="tag">Docker Compose</span>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-1">
+          <div class="pc-header">
+            <span class="pc-icon">🤖</span>
+            <div class="pc-links">
+              <a href="https://github.com/mahak933/ShapeAI_Python_Machine_Learning" class="pc-link"><i class="ri-github-line"></i></a>
+            </div>
+          </div>
+          <div class="pc-title">Python ML Automation Scripts</div>
+          <div class="pc-desc">ML experiments and Python scripting from the ShapeAI scholarship. Covers Pandas, NumPy, data wrangling, and model evaluation workflows.</div>
+          <div class="pc-tags">
+            <span class="tag hot">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-2">
+          <div class="pc-header">
+            <span class="pc-icon">⚙️</span>
+            <div class="pc-links">
+              <a href="#" class="pc-link"><i class="ri-github-line"></i></a>
+            </div>
+          </div>
+          <div class="pc-title">CI/CD Pipeline Lab</div>
+          <div class="pc-desc">Learning-in-public repo for building GitHub Actions pipelines: multi-job workflows, test gates, Docker build & push, and deployment automation.</div>
+          <div class="pc-tags">
+            <span class="tag hot">GitHub Actions</span><span class="tag">Docker</span><span class="tag">CI/CD</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DEVOPS JOURNEY ─── -->
+  <section id="devops">
+    <div class="wrap">
+      <div class="s-header reveal">
+        <span class="s-tag">04</span>
+        <h2 class="s-title">DevOps Journey</h2>
+        <div class="s-line"></div>
+      </div>
+      <div class="journey-grid">
+        <div class="journey-card featured reveal">
+          <div class="jc-title">🚀 #90DaysOfDevOps Challenge</div>
+          <div class="jc-desc">
+            Actively working through the structured 90-day challenge — daily hands-on tasks across Linux, containers, cloud, IaC, and CI/CD.
+            Learning by doing, not just watching.
+          </div>
+          <div class="progress-list">
+            <div class="progress-item">
+              <div class="pi-header"><span>Linux & Shell Scripting</span><span class="pi-pct">85%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="85" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-header"><span>Docker & Containers</span><span class="pi-pct">75%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="75" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-header"><span>GitHub Actions / CI</span><span class="pi-pct">80%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="80" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-header"><span>AWS (EC2, S3, IAM)</span><span class="pi-pct">55%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="55" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-header"><span>Kubernetes</span><span class="pi-pct">30%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="30" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="journey-card reveal reveal-delay-1">
+            <div class="jc-title">🐧 Linux & System Fundamentals</div>
+            <div class="jc-desc">Hands-on with process management, file systems, networking commands, cron jobs and permissions. Running daily CLI challenges.</div>
+          </div>
+          <div class="journey-card reveal reveal-delay-2">
+            <div class="jc-title">☁️ Cloud with AWS</div>
+            <div class="jc-desc">Learning EC2 provisioning, S3 buckets, IAM roles, and VPC basics. Goal: architect simple cloud-native test infrastructure.</div>
+          </div>
+          <div class="journey-card reveal">
+            <div class="jc-title">🏗️ IaC: Terraform & Ansible</div>
+            <div class="jc-desc">Exploring infrastructure-as-code to provision environments and manage configurations. Following TrainWithShubham's curriculum.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="s-header reveal">
+        <span class="s-tag">05</span>
+        <h2 class="s-title">Get In Touch</h2>
+        <div class="s-line"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-form reveal">
+          <form action="https://formspree.io/f/your-id" method="POST">
+            <div class="form-row">
+              <label class="form-label">Name</label>
+              <input class="form-input" type="text" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Email</label>
+              <input class="form-input" type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Message</label>
+              <textarea class="form-input" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+              <i class="ri-send-plane-2-line"></i> Send Message
+            </button>
+          </form>
+        </div>
+        <div class="contact-info reveal reveal-delay-1">
+          <div>
+            <h3>Let's build together</h3>
+            <p>Open to QA automation roles, DevOps opportunities, and interesting automation challenges. Always happy to talk testing and pipelines.</p>
+          </div>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/mahak-agrawalo3/" class="social-link" target="_blank">
+              <i class="ri-linkedin-box-line"></i>
+              <span class="social-link-label">linkedin.com/in/mahak-agrawalo3</span>
+              <i class="ri-arrow-right-line social-link-arrow"></i>
+            </a>
+            <a href="https://github.com/mahak933" class="social-link" target="_blank">
+              <i class="ri-github-line"></i>
+              <span class="social-link-label">github.com/mahak933</span>
+              <i class="ri-arrow-right-line social-link-arrow"></i>
+            </a>
+            <a href="mailto:mahakagrawal933@gmail.com" class="social-link">
+              <i class="ri-mail-line"></i>
+              <span class="social-link-label">mahakagrawal933@gmail.com</span>
+              <i class="ri-arrow-right-line social-link-arrow"></i>
+            </a>
+            <a href="resume.pdf" class="social-link">
+              <i class="ri-file-list-3-line"></i>
+              <span class="social-link-label">Download Resume (PDF)</span>
+              <i class="ri-arrow-right-line social-link-arrow"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-left">
+          © <span id="year"></span> <span>Mahak Agrawal</span> — Built with attention to quality (naturally).
+        </div>
+        <div class="footer-right">
+          <a href="#" class="footer-link"><i class="ri-arrow-up-line"></i> Top</a>
+          <a href="https://github.com/mahak933" class="footer-link" target="_blank"><i class="ri-github-line"></i></a>
+          <a href="https://www.linkedin.com/in/mahak-agrawalo3/" class="footer-link" target="_blank"><i class="ri-linkedin-box-line"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    els.forEach(el => io.observe(el));
+
+    // Progress bars
+    const bars = document.querySelectorAll('.progress-fill[data-width]');
+    const barIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.width = e.target.dataset.width + '%';
+          barIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(b => barIO.observe(b));
+  </script>
+</body>
+</html>
