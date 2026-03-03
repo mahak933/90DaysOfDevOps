@@ -1,0 +1,49 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: sqlcontainer
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: feedback_db
+    networks:
+      - flask-net
+    volumes:
+      - flaskvolume:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
+      start_period: 10s  
+        
+  flask:
+    image: mahak933/myimage
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: feedback_db
+      FLASK_SECRET_KEY: dev-secret  
+    container_name: flask-container
+    networks: 
+      - flask-net
+    depends_on:
+       mysql:
+         condition: service_healthy
+    
+    ports:
+      - "5000:5000"
+       
+    restart: always
+
+
+networks:
+   flask-net:
+
+
+volumes:
+  flaskvolume:
+
+        
+     
