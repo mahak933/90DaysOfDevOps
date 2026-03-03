@@ -1,0 +1,13 @@
+
+server:
+      name: my-server
+      ip: 127.0.0.1
+      port: 8080
+
+  database:
+      host: localhost
+      name: exampledb
+      credentials:
+         user: dbuser
+         password: dbpassword
+
