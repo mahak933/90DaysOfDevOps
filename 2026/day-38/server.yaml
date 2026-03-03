@@ -4,10 +4,21 @@ server:
       ip: 127.0.0.1
       port: 8080
 
-  database:
+database:
       host: localhost
       name: exampledb
       credentials:
          user: dbuser
          password: dbpassword
+
+
+startup_script: |
+    echo "Starting server..."
+    systemctl start nginx
+    echo "Server started."
+
+startup_script_folded: >
+    echo "Starting server..."
+    systemctl start nginx
+    echo "Server started."
 
