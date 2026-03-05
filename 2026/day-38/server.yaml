@@ -1,6 +1,6 @@
 
 server:
-      name: my-server
+      name: myserver
       ip: 127.0.0.1
       port: 8080
 

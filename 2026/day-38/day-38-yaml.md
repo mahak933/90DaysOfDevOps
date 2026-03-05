@@ -14,6 +14,7 @@ Create `person.yaml` that describes yourself with:
 ---
 
 ### Task 2: Lists
+
 Add to `person.yaml`:
 - `tools` — a list of 5 DevOps tools you know or are learning
 - `hobbies` — a list using the inline format `[item1, item2]`
