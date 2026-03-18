@@ -11,6 +11,12 @@ Make `deploy` run only **after** `test` succeeds.
 
 **Verify:** Check the workflow graph in the Actions tab — does it show the dependency chain?
 
+build
+ ├── test
+ └── deploy
+
+![alt text](./images/task1.png)
+
 ---
 
 ### Task 2: Environment Variables
@@ -23,6 +29,8 @@ Print all three in a single step and verify each is accessible.
 
 Then use a **GitHub context variable** — print the commit SHA and the actor (who triggered the run).
 
+![alt text](./images/task2.png)
+
 ---
 
 ### Task 3: Job Outputs
@@ -30,16 +38,33 @@ Then use a **GitHub context variable** — print the commit SHA and the actor (w
 2. Create a second job that **reads that output** and prints it
 3. Pass the value using `outputs:` and `needs.<job>.outputs.<name>`
 
+![alt text](./images/task3.png)
+
 Write in your notes: Why would you pass outputs between jobs?
+
+Passing outputs between jobs in GitHub Actions allows one job to share data with another job that runs later.
+Because each job runs on a separate runner, they cannot share files or variables directly. Outputs let you send important values—like dates, version numbers, or generated filenames—from one job to the next. This makes workflows more organized, avoids repeating work, and enables dependent, step‑by‑step automation.
 
 ---
 
 ### Task 4: Conditionals
 In a workflow, add:
 1. A step that only runs when the branch is `main`
+
+![alt text](./images/task4.1.png)
+
 2. A step that only runs when the previous step **failed**
+
+![alt text](./images/task4.2.png)
+
 3. A job that only runs on **push** events, not on pull requests
+
+![alt text](./images/task4.3.png)
+
 4. A step with `continue-on-error: true` — what does this do?
+
+![alt text](./images/task4.4.png)
+
 
 ---
 
@@ -47,6 +72,13 @@ In a workflow, add:
 Create `.github/workflows/smart-pipeline.yml` that:
 1. Triggers on push to any branch
 2. Has a `lint` job and a `test` job running in parallel
+
+![alt text](./images/task5.2.png)
+
 3. Has a `summary` job that runs after both, prints whether it's a `main` branch push or a feature branch push, and prints the commit message
+
+![alt text](./images/task5.3.png)
+
+![alt text](./images/task5.png)
 
 ---
