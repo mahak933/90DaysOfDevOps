@@ -106,3 +106,39 @@ Ans: Nginx:1.24
 `YES`
 
 ---
+
+### Key Commands
+
+```
+# Namespaces
+kubectl get namespaces
+kubectl apply -f namespace.yml
+kubectl create ns production
+
+# Pods across namespaces
+kubectl get pods -n dev-ns
+kubectl get pods -A
+
+# Deployment
+kubectl apply -f nginx-deployment.yml
+kubectl get deployments -n nginx-ns
+kubectl describe deployment nginx-app -n nginx-ns
+
+# Scaling
+kubectl scale deployment nginx-app --replicas=5 -n nginx-ns
+
+# Rolling update
+kubectl set image deployment/nginx-app nginx-container=nginx:1.25 -n nginx-ns
+kubectl rollout status deployment/nginx-app -n nginx-ns
+kubectl rollout history deployment/nginx-app -n nginx-ns
+kubectl rollout undo deployment/nginx-app -n nginx-ns
+
+# Check image after rollback
+kubectl describe deployment nginx-app -n nginx-ns | grep Image
+
+# Cleanup
+kubectl delete deployment nginx-app -n nginx-ns
+kubectl delete namespace dev-ns staging-ns
+kubectl get all -A
+
+```
